@@ -1,3 +1,0 @@
-instrumentation:
-    es-modules: true
-    excludes: ['**/steamer-plugin-kit.js', '**/steamer-plugin-task.js', '**/libs/kit/**/*.js']
