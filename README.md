@@ -26,12 +26,12 @@ project
 
 ```
 
-### database 数据库
+## database 数据库
 
 | 命令 | 介绍
 | --- | ---
-| database:add | 添加单个/批量数据
-| database:remove | 删除单个/批量数据
+| **database:add** | 添加单个/批量数据
+| **database:remove** | 删除单个/批量数据
 
 ### store 文件
 
