@@ -49,8 +49,9 @@ project
 
 | 命令 | 介绍
 | --- | ---
-| **functions --debug** | 云函数本地调试
-| **functions --name [function name] --data [function data]** | 调用云函数
+| **function:debug** | 云函数本地调试
+| **functions:call [function name] --data [function data]** | 调用云函数
+| **functions:deploy [function name]** | 调用云函数
 
 ### help 帮助
 

@@ -10,12 +10,23 @@ class Functions extends BaseClient {
         this.adminSDK = adminSDK;
     }
 
-    init() {
-        let name = this.argv.name || null;
+    /**
+     * 命令处理入口
+     */
+    init(cmd) {
+        let commands = this.argv._;
         let debug = this.argv.debug || false;
 
-        if (name) {
-            this.call(name);
+        if (cmd === 'functions:call') {
+            if (commands.length !== 2) {
+                return this.error('Please input function name.');
+            }
+            let name = commands[1];
+            this.call(name).then((result) => {
+                console.log(result);
+            }).catch((e) => {
+                this.error(e.stack);
+            });
         }
         else if (debug) {
             this.debug();
@@ -45,13 +56,9 @@ class Functions extends BaseClient {
             secretKey: secretkey
         });
 
-        this.adminSDK.callFunction({
+        return this.adminSDK.callFunction({
             name: name,
             data: data
-        }).then((result) => {
-            console.log(result);
-        }).catch((e) => {
-            this.error(e.stack);
         });
     }
 

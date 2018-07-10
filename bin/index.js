@@ -19,7 +19,7 @@ let argv = Yargs
     .command('storage:upload', 'file upload', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('functions', 'call serverless cloud function', (yargs) => {}, (argv) => {
+    .command('functions:call', 'call serverless cloud function', (yargs) => {}, (argv) => {
         client.init(argv);
     })
     .command('config', 'configuration', (yargs) => {

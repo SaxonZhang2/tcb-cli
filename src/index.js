@@ -27,7 +27,6 @@ class Client extends BaseClient {
         super(env);
         this.config = this.readConfig();
         this.config.env = env ? env : this.config.env;
-        this.Init = Init;
     }
 
     /**
@@ -52,7 +51,7 @@ class Client extends BaseClient {
                 instance = new Init(this.config, argv);
                 break;
             }
-            case 'functions': {
+            case 'functions:call': {
                 instance = new Functions(this.config, argv);
                 break;
             }
@@ -105,6 +104,25 @@ class Client extends BaseClient {
             this.runCmd(cmd, argv);
         });
     }
+
+    /**
+     * 基于模板生成项目
+     */
+    create(options = {}) {
+        return new Init(this.config).create(options);
+    }
+
+    /**
+     *
+     */
+    storage() {
+        return new Storage(this.config);
+    }
+
+    /**
+     *
+     */
+
 }
 
 module.exports = Client;
