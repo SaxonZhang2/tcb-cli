@@ -21,7 +21,11 @@
 project 
  |-- client // 客户端代码，包括小程序端，未来的 Web, Android, IOS
  |-- server // 服务端代码
- |-- tcb // tcb 相关功能代码片段
+ |-- cloud // 小程序云相关功能代码片段
+ |    |- storage // 对象存储
+ |    |- database // 数据库
+ |    |- functions // 云函数
+ |
  |-- tcb.json // tcb 配置
 
 ```
@@ -33,20 +37,20 @@ project
 | **database:add** | 添加单个/批量数据
 | **database:remove** | 删除单个/批量数据
 
-### store 文件
+### storage 对象存储
 
 | 命令 | 介绍
 | --- | ---
-| **store:uploadFile** | 上传文件
-| **store:getTempFileURL** | 获取文件(临时)链接
-| **store:deletfil** | 删除文件
+| **storage:upload --file [file path] --folder [folder path]** | 上传文件
+| **storage:upload --folder [folder path]** | 上传文件夹
+| **storage:upload --batch** | 批量上传文件
 
-### scf 云函数
+### functions 云函数
 
 | 命令 | 介绍
 | --- | ---
-| **scf:debug** | 云函数本地调试
-| **scf:call** | 调用云函数
+| **functions --debug** | 云函数本地调试
+| **functions --name [function name] --data [function data]** | 调用云函数
 
 ### help 帮助
 

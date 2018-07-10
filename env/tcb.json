@@ -1,0 +1,7 @@
+{
+  "path": {
+      "storage": "./cloud/storage",
+      "database": "./cloud/database",
+      "functions": "./cloud/functions"
+  }
+}

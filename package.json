@@ -5,9 +5,10 @@
   "scripts": {
     "lint": "eslint bin",
     "test": "mocha",
-    "travis": "npm test"
+    "travis": "npm test",
+    "postinstall": "node ./bin/postinstall.js"
   },
-  "main": "index.js",
+  "main": "./src/index.js",
   "bin": {
     "tcb": "./bin/index.js"
   },
@@ -29,20 +30,22 @@
     "babel-eslint": "^8.2.3",
     "codecov.io": "^0.1.6",
     "coveralls": "^3.0.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.1",
     "eslint-config-alloy": "^1.4.2",
     "fs-extra": "^6.0.0",
     "request": "^2.87.0"
   },
   "dependencies": {
+    "@tencent/tcb-admin-sdk": "^1.0.5",
     "bluebird": "^3.5.1",
     "cross-spawn": "^6.0.5",
-    "inquirer": "^5.2.0",
+    "inquirer": "^6.0.0",
     "klaw-sync": "^4.0.0",
     "lodash": "^4.17.10",
     "log-symbols": "^2.2.0",
+    "ora": "^2.1.0",
     "update-notifier": "^2.5.0",
-    "yargs": "^11.0.0"
+    "yargs": "^12.0.1"
   },
   "engines": {
     "node": ">=6.4.0"
