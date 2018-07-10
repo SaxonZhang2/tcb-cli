@@ -22,10 +22,17 @@ let argv = Yargs
     .command('functions:call', 'call serverless cloud function', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('config', 'configuration', (yargs) => {
-        console.log('config');
-    }, (argv) => {
-        console.log(argv);
+    .command('config:list', 'list configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command('config:add', 'add configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command('config:update', 'update configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command('config:remove', 'remove configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
     })
     .help()
     .argv;

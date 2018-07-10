@@ -4,6 +4,7 @@ const BaseClient = require('./base');
 const Init = require('./libs/init');
 const Functions = require('./libs/functions');
 const Storage = require('./libs/storage');
+const Config = require('./libs/config');
 
 let {
     Q_MPAPPID,
@@ -49,6 +50,22 @@ class Client extends BaseClient {
         switch (cmd) {
             case 'init': {
                 instance = new Init(this.config, argv);
+                break;
+            }
+            case 'config:list': {
+                instance = new Config(this.config, argv);
+                break;
+            }
+            case 'config:add': {
+                instance = new Config(this.config, argv);
+                break;
+            }
+            case 'config:remove': {
+                instance = new Config(this.config, argv);
+                break;
+            }
+            case 'config:update': {
+                instance = new Config(this.config, argv);
                 break;
             }
             case 'functions:call': {

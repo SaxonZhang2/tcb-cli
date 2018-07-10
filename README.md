@@ -53,6 +53,15 @@ project
 | **functions:call [function name] --data [function data]** | 调用云函数
 | **functions:deploy [function name]** | 调用云函数
 
+## config 配置
+
+| 命令 | 介绍
+| --- | ---
+| **config:add key=value --global** | 添加配置
+| **config:update key=value --global** | 更新配置
+| **config:remove key --global** | 删除配置
+| **config:list --global** | 罗列配置
+
 ### help 帮助
 
 ```javascript
