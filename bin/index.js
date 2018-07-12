@@ -11,27 +11,34 @@ let argv = Yargs
     .command('init', 'init a miniprogram project', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('database', 'database processing', (yargs) => {
-        console.log('database');
-    }, (argv) => {
-        console.log(argv);
-    })
-    .command('storage:upload', 'file upload', (yargs) => {}, (argv) => {
+    .command(['database', 'add'], 'add data', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('functions:call', 'call serverless cloud function', (yargs) => {}, (argv) => {
+    .command(['database', 'remove'], 'remove data', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('config:list', 'list configuration', (yargs) => {}, (argv) => {
+    .command(['database', 'update'], 'update data', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('config:add', 'add configuration', (yargs) => {}, (argv) => {
+    .command(['database', 'set'], 'set data', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('config:update', 'update configuration', (yargs) => {}, (argv) => {
+    .command(['storage', 'upload'], 'file upload', (yargs) => {}, (argv) => {
         client.init(argv);
     })
-    .command('config:remove', 'remove configuration', (yargs) => {}, (argv) => {
+    .command(['functions', 'call'], 'call serverless cloud function', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command(['config', 'list'], 'list configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command(['config', 'add'], 'add configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command(['config', 'update'], 'update configuration', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
+    .command(['config', 'remove'], 'remove configuration', (yargs) => {}, (argv) => {
         client.init(argv);
     })
     .help()

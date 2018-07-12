@@ -30,40 +30,60 @@ project
 
 ```
 
-## database 数据库
+### database 数据库
 
 | 命令 | 介绍
 | --- | ---
-| **database:add** | 添加单个/批量数据
-| **database:remove** | 删除单个/批量数据
+| **database add** | 添加单个/批量数据
+| **database remove** | 删除单个/批量数据
+| **database update** | 更新单个/批量数据
+| **database set** | 更新或创建单个/批量数据
 
-### storage 对象存储
+[样例](./docs/database.md)
+
+### storage 文件
 
 | 命令 | 介绍
 | --- | ---
-| **storage:upload --file [file path] --folder [folder path]** | 上传文件
-| **storage:upload --folder [folder path]** | 上传文件夹
-| **storage:upload --batch** | 批量上传文件
+| **storage upload --file [file path] --folder [folder path]** | 上传文件
+| **storage upload --folder [folder path]** | 上传文件夹
+| **storage upload --batch** | 批量上传文件
 
 ### functions 云函数
 
 | 命令 | 介绍
 | --- | ---
-| **function:debug** | 云函数本地调试
-| **functions:call [function name] --data [function data]** | 调用云函数
-| **functions:deploy [function name]** | 调用云函数
+| **function debug** | 云函数本地调试
+| **functions call [function name] --data [function data]** | 调用云函数
+| **functions deploy [function name]** | 调用云函数
 
-## config 配置
+### config 配置
 
 | 命令 | 介绍
 | --- | ---
-| **config:add key=value --global** | 添加配置
-| **config:update key=value --global** | 更新配置
-| **config:remove key --global** | 删除配置
-| **config:list --global** | 罗列配置
+| **config add key=value --global** | 添加配置
+| **config update key=value --global** | 更新配置
+| **config remove key --global** | 删除配置
+| **config list --global** | 罗列配置
 
 ### help 帮助
 
 ```javascript
 tcb help
 ```
+
+## 开发
+
+```javascript
+// 模拟安装后，运行后置脚本，设置全局配置
+npm run postinstall
+
+// 开发命令行，将命令 link 至全局
+npm link
+```
+
+## 测试
+```javascript
+npm test
+```
+

@@ -5,6 +5,7 @@ const Init = require('./libs/init');
 const Functions = require('./libs/functions');
 const Storage = require('./libs/storage');
 const Config = require('./libs/config');
+const Database = require('./libs/database');
 
 let {
     Q_MPAPPID,
@@ -37,46 +38,34 @@ class Client extends BaseClient {
     init(argv) {
         let cmd = argv._;
         if (!this.config.env && !skipEnvCmd.includes(cmd[0])) {
-            return this.askForEnvId(cmd[0], argv);
+            return this.askForEnvId(cmd, argv);
         }
 
-        this.runCmd(cmd[0], argv);
+        this.runCmd(cmd, argv);
         return Promise.resolve();
     }
 
     runCmd(cmd, argv) {
         let instance = null;
 
-        switch (cmd) {
+        switch (cmd[0]) {
             case 'init': {
                 instance = new Init(this.config, argv);
                 break;
             }
-            case 'config:list': {
+            case 'config': {
                 instance = new Config(this.config, argv);
                 break;
             }
-            case 'config:add': {
-                instance = new Config(this.config, argv);
+            case 'database': {
+                instance = new Database(this.config, argv);
                 break;
             }
-            case 'config:remove': {
-                instance = new Config(this.config, argv);
-                break;
-            }
-            case 'config:update': {
-                instance = new Config(this.config, argv);
-                break;
-            }
-            case 'functions:call': {
+            case 'functions': {
                 instance = new Functions(this.config, argv);
                 break;
             }
-            case 'storage:upload': {
-                instance = new Storage(this.config, argv);
-                break;
-            }
-            case 'storage:getTempFileURL': {
+            case 'storage': {
                 instance = new Storage(this.config, argv);
                 break;
             }

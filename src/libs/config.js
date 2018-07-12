@@ -10,12 +10,11 @@ class Config extends BaseClient {
 
     init(cmd) {
         let isGlobal = this.argv.global || this.argv.g || false;
-        let commands = this.argv._;
         let key = null;
         let val = null;
 
-        if (commands.length === 2) {
-            let kv = commands[1].split('=');
+        if (cmd.length === 3) {
+            let kv = cmd[2].split('=');
 
             if (kv.length === 2) {
                 key = kv[0];
@@ -26,16 +25,16 @@ class Config extends BaseClient {
             }
         }
 
-        if (cmd === 'config:add') {
+        if (cmd[1] === 'add') {
             this.add(key, val, isGlobal);
         }
-        else if (cmd === 'config:remove') {
+        else if (cmd[1] === 'remove') {
             this.remove(key, isGlobal);
         }
-        else if (cmd === 'config:update') {
+        else if (cmd[1] === 'update') {
             this.update(key, val, isGlobal);
         }
-        else if (cmd === 'config:list') {
+        else if (cmd[1] === 'list') {
             this.list(isGlobal);
         }
     }

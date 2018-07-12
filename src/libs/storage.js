@@ -13,9 +13,7 @@ class Store extends BaseClient {
     }
 
     init(cmd) {
-        this.spinner = ora().start(`Uploading...\n`);
-
-        if (cmd === 'store:upload') {
+        if (cmd[1] === 'upload') {
             this.upload();
         }
     }
@@ -32,17 +30,24 @@ class Store extends BaseClient {
             this.uploadFolder(folder);
         }
         else if (file) {
+
+            if (!this.fs.existsSync(file)) {
+                return this.error(`${file} not exists.`);
+            }
+
+            this.spinStart();
+
             this.uploadFile(file).then((res) => {
                 let result = JSON.parse(res);
                 let data = result.data;
                 if (data.message === 'SUCCESS') {
-                    this.spinner.succeed(`${path.basename(file)}\nfileId: ${data.fileid}\nfileUrl: ${data.url}`);
+                    this.spinSucceed(`${path.basename(file)}\nfileId: ${data.fileid}\nfileUrl: ${data.url}`);
                 }
                 else {
                     this.spinner.fail(`upload ${file} fail`);
                 }
             }).catch((err) => {
-                this.spinner.fail(err.stack);
+                this.spinFail(err.stack);
             });
         }
     }
@@ -61,6 +66,10 @@ class Store extends BaseClient {
             uploadTask.push(this.uploadFile(item, path.dirname(item)));
         });
 
+        if (uploadTask.length) {
+            this.spinStart();
+        }
+
         Promise.all(uploadTask).then((arr) => {
             let output = '';
             arr.forEach((res, index) => {
@@ -73,9 +82,9 @@ class Store extends BaseClient {
                     output += `${path.basename(files[index])} upload failed\n`;
                 }
             });
-            this.spinner.succeed(output);
+            this.spinSucceed(output);
         }).catch((err) => {
-            this.spinner.fail(err.stack);
+            this.spinFail(err.stack);
         });
     }
 
@@ -101,6 +110,18 @@ class Store extends BaseClient {
             cloudPath: cloudPath,
             fileContent: this.fs.createReadStream(file)
         });
+    }
+
+    spinStart() {
+        this.spinner = ora().start(`Uploading...\n`);
+    }
+
+    spinSucceed(msg) {
+        this.spinner && this.spinner.succeed(msg);
+    }
+
+    spinFail(err) {
+        this.spinner && this.spinner.fail(err);
     }
 }
 

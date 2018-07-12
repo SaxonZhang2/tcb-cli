@@ -14,14 +14,13 @@ class Functions extends BaseClient {
      * 命令处理入口
      */
     init(cmd) {
-        let commands = this.argv._;
         let debug = this.argv.debug || false;
 
-        if (cmd === 'functions:call') {
-            if (commands.length !== 2) {
+        if (cmd[1] === 'call') {
+            if (cmd.length !== 3) {
                 return this.error('Please input function name.');
             }
-            let name = commands[1];
+            let name = cmd[2];
             this.call(name).then((result) => {
                 console.log(result);
             }).catch((e) => {
