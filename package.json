@@ -4,7 +4,7 @@
   "description": "tencent cloud base client tool",
   "scripts": {
     "lint": "eslint bin",
-    "test": "mocha",
+    "test": "jest",
     "travis": "npm test",
     "postinstall": "node ./bin/postinstall.js"
   },
@@ -33,6 +33,7 @@
     "eslint": "^5.0.1",
     "eslint-config-alloy": "^1.4.2",
     "fs-extra": "^6.0.0",
+    "jest": "^23.4.1",
     "request": "^2.87.0"
   },
   "dependencies": {

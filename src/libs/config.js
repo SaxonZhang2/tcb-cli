@@ -1,3 +1,8 @@
+/**
+ * @author heyli
+ * @date 2018.07
+ */
+
 const path = require('path');
 const BaseClient = require('../base');
 
@@ -8,6 +13,10 @@ class Config extends BaseClient {
         this.argv = argv;
     }
 
+    /**
+     * 命令行入口
+     * @param {Array} cmd 命令行操作
+     */
     init(cmd) {
         let isGlobal = this.argv.global || this.argv.g || false;
         let key = null;
@@ -39,12 +48,22 @@ class Config extends BaseClient {
         }
     }
 
+    /**
+     * 列出配置
+     * @param {Boolean} isGlobal 是否列出全局配置
+     */
     list(isGlobal) {
         this.warn(JSON.stringify(this.readConfig({
             isGlobal: isGlobal,
         }), null, 4));
     }
 
+    /**
+     * 添加配置
+     * @param {String} key 配置键
+     * @param {String} val 配置值
+     * @param {Boolean} isGlobal 是否添加全局配置
+     */
     add(key, val, isGlobal) {
         if (!key || !val) {
             return;
@@ -61,6 +80,11 @@ class Config extends BaseClient {
         });
     }
 
+    /**
+     * 删除配置
+     * @param {String} key 配置键
+     * @param {Boolean} isGlobal 是否删除全局配置
+     */
     remove(key, isGlobal) {
         if (!key) {
             return;
@@ -79,6 +103,12 @@ class Config extends BaseClient {
         }
     }
 
+    /**
+     * 更新配置
+     * @param {String} key 配置键
+     * @param {String} val 配置值
+     * @param {Boolean} isGlobal 是否更新全局配置
+     */
     update(key, val, isGlobal) {
         let config = this.readConfig({
             isGlobal: isGlobal
