@@ -64,13 +64,14 @@ class Config extends BaseClient {
      * @param {String} val 配置值
      * @param {Boolean} isGlobal 是否添加全局配置
      */
-    add(key, val, isGlobal) {
+    add(key, val, isGlobal = false) {
         if (!key || !val) {
             return;
         }
 
         let config = this.readConfig({
-            isGlobal: isGlobal
+            isGlobal: isGlobal,
+            isLocal: !isGlobal
         });
 
         config[key] = val;
@@ -85,13 +86,14 @@ class Config extends BaseClient {
      * @param {String} key 配置键
      * @param {Boolean} isGlobal 是否删除全局配置
      */
-    remove(key, isGlobal) {
+    remove(key, isGlobal = false) {
         if (!key) {
             return;
         }
 
         let config = this.readConfig({
-            isGlobal: isGlobal
+            isGlobal: isGlobal,
+            isLocal: !isGlobal
         });
 
         if (config.hasOwnProperty(key)) {
@@ -109,9 +111,10 @@ class Config extends BaseClient {
      * @param {String} val 配置值
      * @param {Boolean} isGlobal 是否更新全局配置
      */
-    update(key, val, isGlobal) {
+    update(key, val, isGlobal = false) {
         let config = this.readConfig({
-            isGlobal: isGlobal
+            isGlobal: isGlobal,
+            isLocal: !isGlobal
         });
 
         if (!key || !val || !config.hasOwnProperty(key)) {

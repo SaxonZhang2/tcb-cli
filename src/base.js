@@ -40,6 +40,7 @@ class BaseClient {
         let filename = CONFIG_NAME;
 
         let isGlobal = option.isGlobal || false;
+        let isLocal = option.isLocal || false;
 
         let globalConfigFile = this.getGlobalConfigPath();
         let globalConfig = this._readFile(globalConfigFile);
@@ -50,6 +51,10 @@ class BaseClient {
 
         let localConfigFile = path.resolve(path.join(folder, filename));
         let localConfig = this._readFile(localConfigFile);
+
+        if (isLocal) {
+            return localConfig;
+        }
 
         return this._.merge({}, globalConfig, localConfig);
     }
@@ -87,7 +92,7 @@ class BaseClient {
             if (require.cache[filepath]) {
                 delete require.cache[filepath];
             }
-
+            // JSON.parse(this.fs.readFileSync(filepath, 'utf-8'))
             config = require(filepath) || {};
         }
         catch (e) {

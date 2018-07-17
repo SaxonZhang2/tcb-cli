@@ -12,6 +12,8 @@ module.exports = {
         "it": true,
         "before": true,
         "after": true,
+        "beforeAll": true,
+        "afterAll": true,
         "beforeEach": true,
         "afterEach": true,
         "mockFn": true,
