@@ -4,7 +4,7 @@
   "description": "tencent cloud base client tool",
   "scripts": {
     "lint": "eslint bin",
-    "test": "jest ./tests/functions.test.js",
+    "test": "jest ./tests/init.test.js",
     "travis": "npm test",
     "postinstall": "node ./bin/postinstall.js"
   },
@@ -37,7 +37,7 @@
     "request": "^2.87.0"
   },
   "dependencies": {
-    "@tencent/tcb-admin-sdk": "^1.0.5",
+    "tcb-admin-node": "^1.0.8",
     "bluebird": "^3.5.1",
     "cross-spawn": "^6.0.5",
     "inquirer": "^6.0.0",

@@ -30,7 +30,6 @@ class Init extends BaseClient {
             Q_SECRETKEY,
             Q_PROJECT
         ]).then((answers) => {
-
             this.create(answers);
 
         }).catch((e) => {
@@ -86,11 +85,17 @@ class Init extends BaseClient {
             mpappid,
             env,
             secretid,
-            secretkey
+            secretkey,
+            path: {
+                storage: './cloud/storage',
+                database: './cloud/database',
+                functions: './cloud/functions'
+            }
         };
 
         this.createConfig(this.config, {
-            folder: destPath
+            folder: destPath,
+            isLocal: true,
         });
     }
 }

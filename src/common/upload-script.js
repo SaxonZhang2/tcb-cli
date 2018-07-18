@@ -1,1 +1,0 @@
-const adminSDK = require('@tencent/tcb-admin-sdk');

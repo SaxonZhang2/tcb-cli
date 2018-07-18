@@ -1,5 +1,5 @@
 const BaseClient = require('../base');
-const adminSDK = require('@tencent/tcb-admin-sdk');
+const adminSDK = require('tcb-admin-node');
 
 
 class Functions extends BaseClient {

@@ -1,6 +1,5 @@
 const {
     CUR_PATH,
-    GLOBAL_PATH,
     PROJECT_PATH
 } = require('./constants');
 let Plugin = require('../src/libs/functions');

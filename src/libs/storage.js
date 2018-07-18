@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const BaseClient = require('../base');
-const adminSDK = require('@tencent/tcb-admin-sdk');
+const adminSDK = require('tcb-admin-node');
 const ora = require('ora');
 
 class Store extends BaseClient {
