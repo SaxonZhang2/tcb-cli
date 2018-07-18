@@ -9,6 +9,10 @@ beforeAll(() => {
     process.chdir(PROJECT_PATH);
 });
 
+afterAll(() => {
+    process.chdir(CUR_PATH);
+});
+
 describe('config', () => {
 
     beforeEach(() => {
@@ -163,8 +167,4 @@ describe('config', () => {
             isGlobal: true
         })).toEqual({ b: 2 });
     });
-});
-
-afterAll(() => {
-    process.chdir(CUR_PATH);
 });

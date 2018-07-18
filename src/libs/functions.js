@@ -14,22 +14,22 @@ class Functions extends BaseClient {
      * 命令处理入口
      */
     init(cmd) {
-        let debug = this.argv.debug || false;
+        // let debug = this.argv.debug || false;
 
         if (cmd[1] === 'call') {
             if (cmd.length !== 3) {
                 return this.error('Please input function name.');
             }
             let name = cmd[2];
-            this.call(name).then((result) => {
-                console.log(result);
+            return this.call(name).then((result) => {
+                this.log(JSON.stringify(result, null, 4));
             }).catch((e) => {
                 this.error(e.stack);
             });
         }
-        else if (debug) {
-            this.debug();
-        }
+        // else if (debug) {
+        //     this.debug();
+        // }
     }
 
     call(name) {
@@ -59,10 +59,6 @@ class Functions extends BaseClient {
             name: name,
             data: data
         });
-    }
-
-    debug() {
-        console.log('debug functions');
     }
 }
 
