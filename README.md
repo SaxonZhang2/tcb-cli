@@ -45,7 +45,7 @@ project
 
 | 命令 | 介绍
 | --- | ---
-| **storage upload --file [file path] --folder [folder path]** | 上传文件
+| **storage upload --file [file path]** | 上传文件
 | **storage upload --folder [folder path]** | 上传文件夹
 | **storage upload --batch** | 批量上传文件
 
@@ -65,6 +65,9 @@ project
 | **config update key=value --global** | 更新配置
 | **config remove key --global** | 删除配置
 | **config list --global** | 罗列配置
+
+### 注意
+storage 和 database 是批量操作，由于底层未支持批量操作的接口，目前只是做了简单封装，因此文件和数据的指操作会比消耗 API 使用量，请谨慎使用。
 
 ### help 帮助
 
