@@ -1,3 +1,4 @@
+const path = require('path');
 const BaseClient = require('../base');
 const adminSDK = require('tcb-admin-node');
 
@@ -15,9 +16,8 @@ class Functions extends BaseClient {
      */
     init(cmd) {
         // let debug = this.argv.debug || false;
-
         if (cmd[1] === 'call') {
-            if (cmd.length !== 3) {
+            if (cmd.length < 3) {
                 return this.error('Please input function name.');
             }
             let name = cmd[2];
@@ -33,7 +33,13 @@ class Functions extends BaseClient {
     }
 
     call(name) {
-        let data = this.argv.data || '{}';
+
+        let data = this.getData();
+        //  如果返回 promise，表示有报错
+        if (data.then) {
+            return data;
+        }
+
         const {
             env,
             mpappid,
@@ -41,12 +47,6 @@ class Functions extends BaseClient {
             secretkey,
         } = this.config;
 
-        try {
-            data = JSON.parse(data);
-        }
-        catch (e) {
-            return this.error('Data format is not right.');
-        }
 
         this.adminSDK.init({
             mpAppId: mpappid,
@@ -59,6 +59,43 @@ class Functions extends BaseClient {
             name: name,
             data: data
         });
+    }
+
+    /**
+     * 获取参数
+     */
+    getData() {
+        let data = this.argv.data;
+        let file = this.argv.file;
+
+        try {
+            if (file) {
+                file = path.resolve(file);
+
+                if (this.fs.existsSync(file)) {
+                    data = require(file);
+                    return data;
+                }
+                else {
+                    return Promise.reject(new Error(`${file} not exists.`));
+                }
+            }
+        }
+        catch (e) {
+            return Promise.reject(new Error('Data format is not right.'));
+        }
+
+        try {
+            if (data) {
+                data = JSON.parse(data);
+                return data;
+            }
+        }
+        catch (e) {
+            return Promise.reject(new Error('Data format is not right.'));
+        }
+
+        return {};
     }
 }
 

@@ -41,6 +41,7 @@ project
      */
 }
 ```
+[init 样例](./docs/init.md)
 
 ### database 数据库
 
@@ -67,9 +68,11 @@ project
 
 | 命令 | 介绍
 | --- | ---
-| **function debug** | 云函数本地调试
-| **functions call [function name] --data [function data]** | 调用云函数
-| **functions deploy [function name]** | 调用云函数
+| **functions debug** | 云函数本地调试
+| **functions call [function name] --data [data]** | 调用云函数
+| **functions call [function name] --file [data file]** | 调用云函数
+
+[functions 样例](./docs/functions.md)
 
 ### config 配置
 
