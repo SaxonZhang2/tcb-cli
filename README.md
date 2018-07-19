@@ -14,7 +14,7 @@
     - 小程序
     - 小程序插件
 
-* 项目结构
+* 项目结构和配置内容
 
 ```javascript
 
@@ -28,6 +28,18 @@ project
  |
  |-- tcb.json // tcb 配置
 
+// tcb.json
+// 以下是官方推荐的配置内容
+{
+    "path": {
+      "storage": "./cloud/storage",
+      "database": "./cloud/database",
+      "functions": "./cloud/functions"
+    }
+    /**
+     * 其它配置
+     */
+}
 ```
 
 ### database 数据库
@@ -39,7 +51,7 @@ project
 | **database update** | 更新单个/批量数据
 | **database set** | 更新或创建单个/批量数据
 
-[样例](./docs/database.md)
+[database 样例](./docs/database.md)
 
 ### storage 文件
 
@@ -48,6 +60,8 @@ project
 | **storage upload --file [file path]** | 上传文件
 | **storage upload --folder [folder path]** | 上传文件夹
 | **storage upload --batch** | 批量上传文件
+
+[storage 样例](./docs/database.md)
 
 ### functions 云函数
 
