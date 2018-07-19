@@ -92,6 +92,24 @@ storage 和 database 是批量操作，由于底层未支持批量操作的接�
 tcb help
 ```
 
+### tcb.json 配置项目
+
+```javascript
+{
+    "path": {
+      "storage": "./cloud/storage", // 文件存放目录
+      "database": "./cloud/database", // 数据库数据目录
+      "functions": "./cloud/functions" // 云函数目录
+    },
+    "proxy": "", // http 代理
+    "https_proxy": "", // https 代理
+    "mpappid": "", // 小程序 appid
+    "env": "", // 小程序云环境 id
+    "secretid": "", // 腾讯云 secretid
+    "secretkey": "", // 腾讯云 secretkey
+}
+```
+
 ## 开发
 
 ```javascript
