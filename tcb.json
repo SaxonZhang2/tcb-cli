@@ -1,0 +1,11 @@
+{
+    "path": {
+        "storage": "./cloud/storage",
+        "database": "./cloud/database",
+        "functions": "./cloud/functions"
+    },
+    "env": "enofan-0713-79ff38",
+    "mpappid": "wx756873485a6fbb5f",
+    "secretid": "AKIDvoZ9ZsFzmPrAHKSuRnyyoEZk7TtO3W7q",
+    "secretkey": "zuhBg2Q5lcRHyfPHBHPYXNBtTvGTlwzv"
+}

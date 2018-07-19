@@ -7,7 +7,7 @@ const PROJECT_PATH = path.resolve('./tests/projects/project');
 const TEMPLATE_PATH = path.resolve('./tests/projects/template');
 const STORAGE_PATH = path.resolve('./tests/projects/storage');
 const FUNCTIONS_PATH = path.resolve('./tests/projects/functions');
-
+const DATABASE_PATH = path.resolve('./tests/projects/database');
 exports.CUR_PATH = CUR_PATH;
 exports.PROJECTS_PATH = PROJECTS_PATH;
 exports.PROJECT_PATH = PROJECT_PATH;
@@ -15,3 +15,4 @@ exports.GLOBAL_PATH = GLOBAL_PATH;
 exports.TEMPLATE_PATH = TEMPLATE_PATH;
 exports.STORAGE_PATH = STORAGE_PATH;
 exports.FUNCTIONS_PATH = FUNCTIONS_PATH;
+exports.DATABASE_PATH = DATABASE_PATH;

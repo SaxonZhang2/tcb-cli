@@ -1,0 +1,10 @@
+[{
+  "name": "add多个数据",
+  "age": 1
+},
+{
+  "name": "多个数据add",
+  "age": 2,
+  "doc": "multiple1"
+}
+]
