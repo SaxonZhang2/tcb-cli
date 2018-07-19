@@ -4,7 +4,7 @@
   "description": "tencent cloud base client tool",
   "scripts": {
     "lint": "eslint bin",
-    "test": "jest ./tests/storage.test.js",
+    "test": "jest",
     "travis": "npm test",
     "postinstall": "node ./bin/postinstall.js"
   },
