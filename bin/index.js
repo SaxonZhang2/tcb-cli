@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 const Client = require('../src/index');
 const Yargs = require('yargs');
 

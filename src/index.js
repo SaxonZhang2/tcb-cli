@@ -29,6 +29,8 @@ class Client extends BaseClient {
         super(env);
         this.config = this.readConfig();
         this.config.env = env ? env : this.config.env;
+
+        this.setProxy();
     }
 
     /**
@@ -111,23 +113,31 @@ class Client extends BaseClient {
         });
     }
 
-    /**
-     * 基于模板生成项目
-     */
-    create(options = {}) {
-        return new Init(this.config).create(options);
-    }
+    // /**
+    //  * 基于模板生成项目
+    //  */
+    // create(options = {}) {
+    //     return new Init(this.config).create(options);
+    // }
+
+    // /**
+    //  *
+    //  */
+    // storage() {
+    //     return new Storage(this.config);
+    // }
 
     /**
-     *
+     * 设置请求代理
      */
-    storage() {
-        return new Storage(this.config);
+    setProxy() {
+        if (this.config.proxy) {
+            process.env.HTTP_PROXY = this.config.proxy;
+        }
+        if (this.config.https_proxy) {
+            process.env.HTTPS_PROXY = this.config.https_proxy;
+        }
     }
-
-    /**
-     *
-     */
 
 }
 
