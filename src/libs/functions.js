@@ -15,7 +15,6 @@ class Functions extends BaseClient {
      * 命令处理入口
      */
     init(cmd) {
-        // let debug = this.argv.debug || false;
         if (cmd[1] === 'call') {
             if (cmd.length < 3) {
                 return this.error('Please input function name.');
@@ -27,9 +26,9 @@ class Functions extends BaseClient {
                 this.error(e.stack);
             });
         }
-        // else if (debug) {
-        //     this.debug();
-        // }
+        else if (cmd[1] === 'debug') {
+            this.debug();
+        }
     }
 
     call(name) {
@@ -96,6 +95,11 @@ class Functions extends BaseClient {
         }
 
         return {};
+    }
+
+    debug() {
+        console.log('debug');
+        console.log(this.argv);
     }
 }
 

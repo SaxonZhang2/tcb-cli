@@ -29,6 +29,9 @@ let argv = Yargs
     .command(['functions', 'call'], 'call serverless cloud function', (yargs) => {}, (argv) => {
         client.init(argv);
     })
+    .command(['functions', 'debug'], 'debug serverless cloud function', (yargs) => {}, (argv) => {
+        client.init(argv);
+    })
     .command(['config', 'list'], 'list configuration', (yargs) => {}, (argv) => {
         client.init(argv);
     })
