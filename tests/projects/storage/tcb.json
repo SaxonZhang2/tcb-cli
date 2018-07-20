@@ -1,0 +1,11 @@
+{
+    "mpappid": "123",
+    "env": "234",
+    "secretid": "345",
+    "secretkey": "456",
+    "path": {
+      "storage": "./cloud/storage",
+      "database": "./cloud/database",
+      "functions": "./cloud/functions"
+    }
+}

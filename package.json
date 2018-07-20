@@ -1,0 +1,54 @@
+{
+  "name": "tcb-cli",
+  "version": "0.0.2",
+  "description": "tencent cloud base client tool",
+  "scripts": {
+    "lint": "eslint bin src",
+    "test": "jest",
+    "travis": "npm test",
+    "postinstall": "node ./bin/postinstall.js"
+  },
+  "main": "./src/index.js",
+  "bin": {
+    "tcb": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TencentCloudBase/tcb-cli.git"
+  },
+  "keywords": [
+    "tencent cloud base",
+    "tcb"
+  ],
+  "author": "heyli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TencentCloudBase/tcb-cli/issues"
+  },
+  "homepage": "https://github.com/TencentCloudBase/tcb-cli#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "codecov.io": "^0.1.6",
+    "coveralls": "^3.0.1",
+    "eslint": "^5.1.0",
+    "eslint-config-alloy": "^1.4.2",
+    "fs-extra": "^7.0.0",
+    "jest": "^23.4.1",
+    "request": "^2.87.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "cross-spawn": "^6.0.5",
+    "inquirer": "^6.0.0",
+    "klaw-sync": "^4.0.0",
+    "lodash": "^4.17.10",
+    "log-symbols": "^2.2.0",
+    "ora": "^3.0.0",
+    "tcb-admin-node": "^1.0.8",
+    "update-notifier": "^2.5.0",
+    "yargs": "^12.0.1"
+  },
+  "engines": {
+    "node": ">=6.4.0"
+  }
+}

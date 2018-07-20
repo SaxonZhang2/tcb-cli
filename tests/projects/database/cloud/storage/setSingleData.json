@@ -1,0 +1,8 @@
+{
+ 
+  "doc": "set-single2",
+  "set":{
+    "name": "单个数据",
+    "age": 2
+}
+}
