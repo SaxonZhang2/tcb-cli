@@ -1,9 +1,11 @@
 # tcb-cli
 
+Tencent Cloud Base 命令行工具。
+
 [![NPM Version](https://img.shields.io/npm/v/tcb-cli.svg?style=flat)](https://www.npmjs.com/package/tcb-cli)
-[![Travis](https://img.shields.io/travis/tencentcloudbase/tcb-cli.svg)](https://travis-ci.org/tencentcloudbase/tcb-cli)
-[![Deps](https://david-dm.org/tencentcloudbase/tcb-cli.svg)](https://img.shields.io/tencentcloudbase/tcb-cli)
-[![Coverage](https://img.shields.io/coveralls/tencentcloudbase/tcb-cli.svg)](https://coveralls.io/github/tencentcloudbase/tcb-cli)
+[![Travis](https://img.shields.io/travis/TencentCloudBase/tcb-cli.svg)](https://travis-ci.org/TencentCloudBase/tcb-cli)
+[![Deps](https://david-dm.org/TencentCloudBase/tcb-cli.svg)](https://img.shields.io/TencentCloudBase/tcb-cli)
+[![Coverage](https://img.shields.io/coveralls/TencentCloudBase/tcb-cli.svg)](https://coveralls.io/github/TencentCloudBase/tcb-cli)
 
 
 ## 功能

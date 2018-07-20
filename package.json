@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tencentcloudbase/tcb-cli.git"
+    "url": "git+https://github.com/TencentCloudBase/tcb-cli.git"
   },
   "keywords": [
     "tencent cloud base",
@@ -23,9 +23,9 @@
   "author": "heyli",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tencentcloudbase/tcb-cli/issues"
+    "url": "https://github.com/TencentCloudBase/tcb-cli/issues"
   },
-  "homepage": "https://github.com/tencentcloudbase/tcb-cli#readme",
+  "homepage": "https://github.com/TencentCloudBase/tcb-cli#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.6",
     "codecov.io": "^0.1.6",

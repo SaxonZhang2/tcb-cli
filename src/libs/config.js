@@ -1,9 +1,3 @@
-/**
- * @author heyli
- * @date 2018.07
- */
-
-const path = require('path');
 const BaseClient = require('../base');
 
 class Config extends BaseClient {
