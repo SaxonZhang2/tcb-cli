@@ -14,153 +14,160 @@ class Database extends BaseClient {
      * 命令处理入口
      */
     init(cmd) {
-        const { collection } = this.argv
-        if(!collection || !this.isString(collection)){
+        const { collection } = this.argv;
+        if (!collection || !this._.isString(collection)) {
             return this.error(`Please input collection.`);
         }
         if (cmd[1] === 'add') {
-            return this.add()
-        }else if(cmd[1] === 'remove'){
-            return this.remove()
-        }else if(cmd[1] === 'set'){
-            return this.set()
-        }else if(cmd[1] === 'update'){
-            return this.update()
+            return this.add();
+        } else if (cmd[1] === 'remove') {
+            return this.remove();
+        } else if (cmd[1] === 'set') {
+            return this.set();
+        } else if (cmd[1] === 'update') {
+            return this.update();
         }
     }
     /**
      * 添加文档
      */
-    async add() {
-        const { collection:collectionName = null,  data:file = null} = this.argv
-
-        if(!file || !this.isString(file)){
-            throw this.error(`Please input data.`);
+    add() {
+        const {
+            collection: collectionName = null,
+            data: file = null
+        } = this.argv;
+        const self = this;
+        if (!file || !this._.isString(file)) {
+            return this.error(`Please input data.`);
         }
-        if(!this.fs.existsSync(file)){
-            throw this.error(`${file} not exists.`);
+        if (!this.fs.existsSync(file)) {
+            return this.error(`${file} not exists.`);
         }
-        
-        const addFileDatas = this.getFileDatas(file)
-        const db = this.initAdminSDKDatabase()
-        const collection = db.collection(collectionName)
 
-        const addResults = await Promise.all(addFileDatas.map(item => {
-            return collection.add(item)
-        }))
-        this.info(addResults)
-        return addResults
+        const addFileDatas = this.getFileDatas(file);
+
+        if (!addFileDatas) {
+            return;
+        }
+
+        const db = this.initAdminSDKDatabase();
+        const collection = db.collection(collectionName);
+
+        return Promise.all(addFileDatas.map(item => {
+            return collection.add(item);
+        })).then(function (results) {
+            self.info(results);
+            return results;
+        });
     }
     /**
      * 删除文档
-     * 1.优先删除指定doc
-     * 2.否则从文件中读取doc
      */
-    async remove(){
-        const { 
-            collection:collectionName,
-            doc:docId = null,  
-            data:file = null
-        } = this.argv
-        
-        let isDocMissing = !docId || !this.isString(docId)
-        let isFileMissing = !file || !this.isString(file)
-        if(isDocMissing && isFileMissing){
-            throw this.error(`Please input doc or data.`);
-        }else if(!isFileMissing && !this.fs.existsSync(file)){
-            throw this.error(`${file} not exists.`);
+    remove() {
+        const {
+            collection: collectionName,
+            doc: docId = null,
+            data: file = null
+        } = this.argv;
+        const self = this;
+        let isDocMissing = !docId || !this._.isString(docId);
+        let isFileMissing = !file || !this._.isString(file);
+        if (isDocMissing && isFileMissing) {
+            return this.error(`Please input doc or data.`);
+        } else if (!isFileMissing && !this.fs.existsSync(file)) {
+            return this.error(`${file} not exists.`);
         }
 
-        let removeFileDatas = []
+        let removeFileDatas;
         if (docId) {
             removeFileDatas = [{
                 doc: docId
-            }]
-        }else{
-            removeFileDatas = this.getFileDatas(file)
+            }];
+        } else {
+            removeFileDatas = this.getFileDatas(file);
         }
-       
-        const db = this.initAdminSDKDatabase()
-        const collection = db.collection(collectionName)
+        if (!removeFileDatas) {
+            return;
+        }
+        const db = this.initAdminSDKDatabase();
+        const collection = db.collection(collectionName);
 
-        const removeDocResults = await Promise.all(removeFileDatas.map(item => {
-            const doc = collection.doc(item.doc)
-            return doc.remove()
-        }))
-        this.info(removeDocResults);
-        return removeDocResults
+        return Promise.all(removeFileDatas.map(item => {
+            const doc = collection.doc(item.doc);
+            return doc.remove();
+        })).then(function (results) {
+            self.info(results);
+            return results;
+        });
     }
     /**
-     * 更新文档set, update
-     * 1.优先更新指定doc
-     * 2.否则从文件中读取 doc,set更新
-     * 3.set的情况下，collection中不存在任何doc时，会创建新文档
-     * @param {Boolean} isUpdate  
+     * 更新文档 set
+     * @param {Boolean} isUpdate 是否走 update 逻辑，update 需指定 doc
      */
-    async set(isUpdate){
-        const { 
-            collection:collectionName,
-            doc:docId = null,  
-            data:file = null
-        } = this.argv
-        
-        const isDocMissing = !docId || !this.isString(docId)
-        const isFileMissing = !file || !this.isString(file)
-        if(isFileMissing){
-            throw this.error(`Please input data.`);
-        }else if(!this.fs.existsSync(file)){
-            throw this.error(`${file} not exists.`);
+    set(isUpdate) {
+        const {
+            collection: collectionName,
+            doc: docId = null,
+            data: file = null
+        } = this.argv;
+        const self = this;
+        const isDocMissing = !docId || !this._.isString(docId);
+        const isFileMissing = !file || !this._.isString(file);
+        if (isFileMissing) {
+            return this.error(`Please input data.`);
+        } else if (!this.fs.existsSync(file)) {
+            return this.error(`${file} not exists.`);
         }
 
-        let setFileDatas = this.getFileDatas(file)
-        const db = this.initAdminSDKDatabase()
-        const collection = db.collection(collectionName)
+        let setFileDatas = this.getFileDatas(file);
+        if (!setFileDatas) {
+            return;
+        }
 
-        const setDocResults = await Promise.all(setFileDatas.map(item => {
-            let setDoc
-            let setData
-            if(isDocMissing){
-                if(item.doc){
-                    setDoc = item.doc
-                    setData = item.set
-                }else{
-                    if(isUpdate){
-                        throw this.error(`Please input doc.`);
-                    }else{
-                        setDoc = undefined
-                        setData = item
+        const db = this.initAdminSDKDatabase();
+        const collection = db.collection(collectionName);
+
+        return Promise.all(setFileDatas.map(item => {
+            let setDoc;
+            let setData;
+            if (isDocMissing) {
+                if (item.doc) {
+                    setDoc = item.doc;
+                    setData = item.set;
+                } else {
+                    if (isUpdate) {
+                        return Promise.reject(this.error(`Please input doc.`));
+                    } else {
+                        setData = item;
                     }
                 }
-            }else{
-                setDoc = docId
-                setData = setData = item
+            } else {
+                setDoc = docId;
+                setData = setData = item;
             }
-            
-            if(!setData){
-                throw this.error(`Invalid file content.`);
+
+            if (!setData) {
+                return Promise.reject(this.error(`Invalid file content.`));
             }
-           
-            const doc = collection.doc(setDoc)
-            const action = isUpdate ? 'update' : 'set'
-            return doc[action](setData)
-        }))
-        this.info(setDocResults)
-        return setDocResults
-    }
 
-    update(){
-        return this.set(true)
+            const doc = collection.doc(setDoc);
+            const action = isUpdate ? 'update' : 'set';
+            return doc[action](setData);
+        })).then(function (results) {
+            self.info(results);
+            return results;
+        });
     }
-
-    isArray(obj) {
-        return Object.prototype.toString.call(obj).indexOf('Array') != -1
+    /**
+     * 更新文档 update
+     */
+    update() {
+        return this.set(true);
     }
-
-    isString(obj) {
-        return Object.prototype.toString.call(obj).indexOf('String') != -1
-    }
-
-    initAdminSDKDatabase(){
+    /**
+     * 初始化AdminSDK，返回数据库的引用
+     */
+    initAdminSDKDatabase() {
         const {
             env,
             mpappid,
@@ -173,20 +180,23 @@ class Database extends BaseClient {
             secretId: secretid,
             secretKey: secretkey
         });
-        return this.adminSDK.database()
+        return this.adminSDK.database();
     }
-
-    getFileDatas(file){
-        let fileData
-        try{
-            fileData = file.endsWith('.json') ? this.fs.readJsonSync(file) : file.endsWith('.js') ? require(file) : {}
-        }catch(e){
-            throw this.error('Data format is not right.');
+    /**
+     * 读取上传文件
+     * @param {String} file 待读取的文件
+     */
+    getFileDatas(file) {
+        let fileData;
+        try {
+            fileData = file.endsWith('.json') ? this.fs.readJsonSync(file) : file.endsWith('.js') ? require(file) : {};
+        } catch (e) {
+            return this.error('Data format is not right.');
         }
-        if(!Object.keys(fileData).length){
-            throw this.error(`Invalid file content.`);
+        if (!Object.keys(fileData).length) {
+            return this.error(`Invalid file content.`);
         }
-        return this.isArray(fileData) ? fileData : [fileData]
+        return this._.isArray(fileData) ? fileData : [fileData];
     }
 
 }
