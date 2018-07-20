@@ -81,7 +81,6 @@ class Init extends BaseClient {
         });
 
         this.config = {
-            ...this.config,
             mpappid,
             env,
             secretid,
