@@ -126,4 +126,3 @@ npm link
 ```javascript
 npm test
 ```
-
