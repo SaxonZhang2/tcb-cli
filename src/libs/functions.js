@@ -90,8 +90,6 @@ class Functions extends BaseClient {
     }
 
     debug() {
-        console.log('debug');
-        console.log(this.argv);
         fork(scfBinFile, ['init']);
     }
 }
