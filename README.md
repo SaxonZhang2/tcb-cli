@@ -70,7 +70,6 @@ project
 
 | 命令 | 介绍
 | --- | ---
-| **functions debug** | 云函数本地调试
 | **functions call [function name] --data [data]** | 调用云函数
 | **functions call [function name] --file [data file]** | 调用云函数
 
