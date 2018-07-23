@@ -1,6 +1,7 @@
 const {
     CUR_PATH,
-    DATABASE_PATH
+    DATABASE_PATH,
+    PATH_CONFIG
 } = require('./constants');
 let Plugin = require('../src/libs/database');
 const path = require('path');
@@ -49,14 +50,14 @@ function mockInitAdminSDKDatabase() {
 describe('database', () => {
     test('missing collection', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd
         });
         expect(plugin.init(cmd)).toBeUndefined();
     });
     test('add single correct json', (done) => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/addSingleData.json'
@@ -69,7 +70,7 @@ describe('database', () => {
     });
     test('add multiple correct json', (done) => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/addMultipleData.json'
@@ -82,7 +83,7 @@ describe('database', () => {
     });
     test('add single correct js', (done) => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/addSingleData.js')
@@ -95,7 +96,7 @@ describe('database', () => {
     });
     test('add multiple correct js', (done) => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/addMultipleData.js')
@@ -108,7 +109,7 @@ describe('database', () => {
     });
     test('add missing data', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user'
         });
@@ -116,7 +117,7 @@ describe('database', () => {
     });
     test('add data is true', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: true
@@ -125,7 +126,7 @@ describe('database', () => {
     });
     test('add data not exists', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './helloworld.xml'
@@ -134,7 +135,7 @@ describe('database', () => {
     });
     test('add data format error', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/invalidData.js'
@@ -143,7 +144,7 @@ describe('database', () => {
     });
     test('add data othrt type', () => {
         let cmd = ['database', 'add'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/otherTypeData.map'
@@ -152,7 +153,7 @@ describe('database', () => {
     });
     test('remove doc', (done) => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             doc: 'qwer'
@@ -165,7 +166,7 @@ describe('database', () => {
     });
     test('remove single json', (done) => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/removeSingleData.json'
@@ -178,7 +179,7 @@ describe('database', () => {
     });
     test('remove single js', (done) => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/removeSingleData.js')
@@ -191,7 +192,7 @@ describe('database', () => {
     });
     test('remove multiple json', (done) => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/removeMultipleData.json'
@@ -204,7 +205,7 @@ describe('database', () => {
     });
     test('remove multiple js', (done) => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/removeMultipleData.js')
@@ -217,7 +218,7 @@ describe('database', () => {
     });
     test('remove missing doc and data', () => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user'
         });
@@ -226,7 +227,7 @@ describe('database', () => {
     });
     test('remove data not exists', () => {
         let cmd = ['database', 'remove'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './notExists.file'
@@ -236,7 +237,7 @@ describe('database', () => {
     });
     test('set doc single json', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             doc: 'single',
@@ -250,7 +251,7 @@ describe('database', () => {
     });
     test('set doc single js', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             doc: 'single',
@@ -264,7 +265,7 @@ describe('database', () => {
     });
     test('set multiple json', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './cloud/storage/setMultipleData.json'
@@ -277,7 +278,7 @@ describe('database', () => {
     });
     test('set multiple js', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/setMultipleData.js')
@@ -290,7 +291,7 @@ describe('database', () => {
     });
     test('set missing data', () => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user'
         });
@@ -299,7 +300,7 @@ describe('database', () => {
     });
     test('set data not exists', () => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: './notExists.file'
@@ -309,7 +310,7 @@ describe('database', () => {
     });
     test('set data only doc', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/setOnlyDocData.js')
@@ -323,7 +324,7 @@ describe('database', () => {
     });
     test('set data only set', (done) => {
         let cmd = ['database', 'set'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/setOnlySetData.js')
@@ -336,7 +337,7 @@ describe('database', () => {
     });
     test('update data only set', (done) => {
         let cmd = ['database', 'update'];
-        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null }, {
+        let plugin = new Plugin({ env: null, mpappid: null, secretid: null, secretkey: null, path: PATH_CONFIG }, {
             _: cmd,
             collection: 'user',
             data: path.join(process.cwd(), './cloud/storage/setOnlySetData.js')

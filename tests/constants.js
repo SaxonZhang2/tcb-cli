@@ -16,3 +16,17 @@ exports.TEMPLATE_PATH = TEMPLATE_PATH;
 exports.STORAGE_PATH = STORAGE_PATH;
 exports.FUNCTIONS_PATH = FUNCTIONS_PATH;
 exports.DATABASE_PATH = DATABASE_PATH;
+
+
+exports.PATH_CONFIG = {
+    storage: './cloud/storage',
+    database: './cloud/database',
+    functions: './cloud/functions'
+};
+
+exports.NULL_CONFIG = {
+    mpAppId: null,
+    envName: null,
+    secretId: null,
+    secretKey: null
+};

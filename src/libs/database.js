@@ -187,15 +187,21 @@ class Database extends BaseClient {
     }
     /**
      * 是否将 cloud/database 路径放在文件路径前面
+     * 如果不是绝对路径，或者相对路径，而是像 file.png 或 folder 这种，则会直接指向 cloud/database 目录
      * @param {String} filePath 文件/文件夹路径
      */
     appendPath(filePath) {
         let p = filePath;
-        // 如果不是绝对路径，或者相对路径，而是像 file.png 或 folder 这种，则会直接指向 cloud/database 目录
-        if (!p.includes('/') || !p.includes('./')) {
-            p = path.join(this.config.path.database, p);
+
+        if (!p) {
+            return '';
         }
-        return p;
+
+        if (path.isAbsolute(p) || p.includes('./')) {
+            return p;
+        }
+
+        return path.join(this.config.path.database, p);
     }
     /**
      * 读取上传文件

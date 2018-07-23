@@ -2,7 +2,9 @@ const fs = require('fs-extra');
 const {
     CUR_PATH,
     PROJECTS_PATH,
-    STORAGE_PATH
+    STORAGE_PATH,
+    PATH_CONFIG,
+    NULL_CONFIG
 } = require('./constants');
 let Plugin = require('../src/libs/storage');
 
@@ -16,23 +18,13 @@ afterAll(() => {
 
 describe('storage', () => {
     it('upload file', () => {
-        let config = {
-            mpAppId: null,
-            envName: null,
-            secretId: null,
-            secretKey: null
-        };
         let cmd = ['storage', 'upload'];
         let plugin = new Plugin({
             env: null,
             mpappid: null,
             secretid: null,
             secretkey: null,
-            path: {
-                storage: './cloud/storage',
-                database: './cloud/database',
-                functions: './cloud/functions'
-            }
+            path: PATH_CONFIG
         }, {
             _: cmd,
             file: 'wechat.png'
@@ -40,7 +32,7 @@ describe('storage', () => {
         plugin.spinStart = jest.fn();
         plugin.spinSucceed = jest.fn();
         plugin.adminSDK.init = jest.fn((options) => {
-            expect(options).toEqual(config);
+            expect(options).toEqual(NULL_CONFIG);
             return this;
         });
         plugin.adminSDK.uploadFile = jest.fn((params) => {
@@ -73,11 +65,7 @@ describe('storage', () => {
             mpappid: null,
             secretid: null,
             secretkey: null,
-            path: {
-                storage: './cloud/storage',
-                database: './cloud/database',
-                functions: './cloud/functions'
-            }
+            path: PATH_CONFIG
         }, {
             _: cmd,
             folder: 'icon'
@@ -85,7 +73,7 @@ describe('storage', () => {
         plugin.spinStart = jest.fn();
         plugin.spinSucceed = jest.fn();
         plugin.adminSDK.init = jest.fn((options) => {
-            expect(options).toEqual(config);
+            expect(options).toEqual(NULL_CONFIG);
             return this;
         });
 
@@ -140,11 +128,7 @@ describe('storage', () => {
             mpappid: null,
             secretid: null,
             secretkey: null,
-            path: {
-                storage: './cloud/storage',
-                database: './cloud/database',
-                functions: './cloud/functions'
-            }
+            path: PATH_CONFIG
         }, {
             _: cmd,
             batch: true
@@ -152,7 +136,7 @@ describe('storage', () => {
         plugin.spinStart = jest.fn();
         plugin.spinSucceed = jest.fn();
         plugin.adminSDK.init = jest.fn((options) => {
-            expect(options).toEqual(config);
+            expect(options).toEqual(NULL_CONFIG);
             return this;
         });
 

@@ -40,7 +40,7 @@ class Store extends BaseClient {
         else if (file) {
             file = this.appendPath(file);
             if (!this.fs.existsSync(file)) {
-                return this.error(`${file} not exists.`);
+                return Promise.reject(new Error(`${file} not exists.`));
             }
 
             this.spinStart();
@@ -130,15 +130,22 @@ class Store extends BaseClient {
 
     /**
      * 是否将 cloud/storage 路径放在文件路径前面
+     * 如果不是绝对路径，或者相对路径，而是像 file.png 或 folder 这种，则会直接指向 cloud/storage 目录
      * @param {String} filePath 文件/文件夹路径
      */
     appendPath(filePath) {
         let p = filePath;
-        // 如果不是绝对路径，或者相对路径，而是像 file.png 或 folder 这种，则会直接指向 cloud/storage 目录
-        if (!p.includes('/') || !p.includes('./')) {
-            p = path.join(this.config.path.storage, p);
+
+        if (!p) {
+            return '';
         }
-        return p;
+
+
+        if (path.isAbsolute(p) || p.includes('./')) {
+            return p;
+        }
+
+        return path.join(this.config.path.storage, p);
     }
 
     /**
