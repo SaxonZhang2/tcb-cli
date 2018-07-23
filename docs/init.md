@@ -6,5 +6,5 @@ tcb init
 ? Please input your environment id: // 小程序云环境 id
 ? Please input your tencent cloud secret id: // 腾讯云 secret id
 ? Please input your tencent cloud secret key: // 腾讯云 secret key
-? project name:
+? project name: // 项目名称
 ```

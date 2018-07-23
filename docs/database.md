@@ -51,7 +51,7 @@ module.exports = {
 };
 
 // 向集合user批量添加文档，数据源自 D盘根目录下的 data.json
-tcb database add --colleciton user --data D:/data.json
+tcb database add --colleciton user --data D:\data.json
 // users.json 
 [
     {
