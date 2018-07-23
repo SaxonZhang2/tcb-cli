@@ -1,6 +1,6 @@
 const BaseClient = require('../base');
 const adminSDK = require('tcb-admin-node');
-
+const path = require('path');
 
 class Database extends BaseClient {
     constructor(config = {}, argv) {
@@ -32,7 +32,7 @@ class Database extends BaseClient {
      * 添加文档
      */
     add() {
-        const {
+        let {
             collection: collectionName = null,
             data: file = null
         } = this.argv;
@@ -40,6 +40,7 @@ class Database extends BaseClient {
         if (!file || !this._.isString(file)) {
             return this.error(`Please input data.`);
         }
+        file = this.appendPath(file);
         if (!this.fs.existsSync(file)) {
             return this.error(`${file} not exists.`);
         }
@@ -64,7 +65,7 @@ class Database extends BaseClient {
      * 删除文档
      */
     remove() {
-        const {
+        let {
             collection: collectionName,
             doc: docId = null,
             data: file = null
@@ -72,6 +73,7 @@ class Database extends BaseClient {
         const self = this;
         let isDocMissing = !docId || !this._.isString(docId);
         let isFileMissing = !file || !this._.isString(file);
+        file = this.appendPath(file);
         if (isDocMissing && isFileMissing) {
             return this.error(`Please input doc or data.`);
         } else if (!isFileMissing && !this.fs.existsSync(file)) {
@@ -105,7 +107,7 @@ class Database extends BaseClient {
      * @param {Boolean} isUpdate 是否走 update 逻辑，update 需指定 doc
      */
     set(isUpdate) {
-        const {
+        let {
             collection: collectionName,
             doc: docId = null,
             data: file = null
@@ -113,6 +115,7 @@ class Database extends BaseClient {
         const self = this;
         const isDocMissing = !docId || !this._.isString(docId);
         const isFileMissing = !file || !this._.isString(file);
+        file = this.appendPath(file);
         if (isFileMissing) {
             return this.error(`Please input data.`);
         } else if (!this.fs.existsSync(file)) {
@@ -181,6 +184,18 @@ class Database extends BaseClient {
             secretKey: secretkey
         });
         return this.adminSDK.database();
+    }
+    /**
+     * 是否将 cloud/database 路径放在文件路径前面
+     * @param {String} filePath 文件/文件夹路径
+     */
+    appendPath(filePath) {
+        let p = filePath;
+        // 如果不是绝对路径，或者相对路径，而是像 file.png 或 folder 这种，则会直接指向 cloud/database 目录
+        if (!p.includes('/') || !p.includes('./')) {
+            p = path.join(this.config.path.database, p);
+        }
+        return p;
     }
     /**
      * 读取上传文件
