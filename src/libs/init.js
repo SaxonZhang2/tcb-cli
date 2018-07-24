@@ -75,6 +75,7 @@ class Init extends BaseClient {
             let extname = path.extname(item);
             if (extname === '.js' || extname === '.json') {
                 let content = this.fs.readFileSync(item);
+                // 修复不识别 es6 template 的问题
                 let compiledContent = this._.template(content, { 'interpolate': /<%=([\s\S]+?)%>/g })({
                     project: project,
                     mpappid: mpappid,
