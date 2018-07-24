@@ -86,9 +86,10 @@ class Client extends BaseClient {
         let notifier = UpdateNotifier({
             pkg,
             updateCheckInterval: 1000 * 60 * 30, // 30分钟
+        });
+        notifier.notify({
             isGlobal: true
         });
-        notifier.notify();
     }
 
     /**

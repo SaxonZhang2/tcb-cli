@@ -10,7 +10,7 @@
     },
     "main": "./src/index.js",
     "bin": {
-        "tcb": "./bin/index.js"
+        "tcb": "./bin/tcb"
     },
     "repository": {
         "type": "git",
