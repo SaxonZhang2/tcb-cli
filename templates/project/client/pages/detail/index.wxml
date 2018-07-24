@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">  
+    <view wx:for="{{imageList}}" wx:for-item="image" class="previewimg">  
+        <image src="{{idCardImage}}" data-src="{{idCardImage}}" bindtap="previewImage"></image>  
+    </view>
+    <view class="idcard-detail">
+      <view>姓名： {{idCardData.name}}</view>
+      <view>国籍： {{idCardData.nation}}</view>
+      <view>性别： {{idCardData.sex}}</view>
+    </view>
+</view>

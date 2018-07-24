@@ -72,16 +72,19 @@ class Init extends BaseClient {
         });
 
         files.forEach((item) => {
-            let content = this.fs.readFileSync(item);
-            let compiledContent = this._.template(content)({
-                project: project,
-                mpappid: mpappid,
-                env: env,
-                secretid: secretid,
-                secretkey: secretkey
-            });
-            this.fs.ensureFileSync(item);
-            this.fs.writeFileSync(item, compiledContent, 'utf-8');
+            let extname = path.extname(item);
+            if (extname === '.js' || extname === '.json') {
+                let content = this.fs.readFileSync(item);
+                let compiledContent = this._.template(content, { 'interpolate': /<%=([\s\S]+?)%>/g })({
+                    project: project,
+                    mpappid: mpappid,
+                    env: env,
+                    secretid: secretid,
+                    secretkey: secretkey
+                });
+                this.fs.ensureFileSync(item);
+                this.fs.writeFileSync(item, compiledContent, 'utf-8');
+            }
         });
 
         this.config = {
