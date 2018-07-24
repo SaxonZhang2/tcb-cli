@@ -226,7 +226,7 @@ describe('storage', () => {
         return plugin.init(cmd);
     });
 
-    it('file number exceed limit', (done) => {
+    it('file number exceed limit', () => {
         let cmd = ['storage', 'upload'];
         let plugin = new Plugin({
             env: null,
@@ -248,10 +248,7 @@ describe('storage', () => {
         plugin.error = jest.fn((msg) => {
             expect(msg).toEqual(`${FILE_NUM_LIMIT}: 100。`);
         });
-        plugin.init(cmd).then(() => {
-            plugin.getFiles.mockRestore();
-            done();
-        });
+        return plugin.init(cmd);
     });
 
     it('folder file size exceed limit', () => {

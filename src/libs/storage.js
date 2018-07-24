@@ -45,9 +45,7 @@ class Store extends BaseClient {
         }
         else if (folder) {
             folder = this.appendPath(folder);
-            return this.uploadFolder(folder).catch((e) => {
-                this.error(e.message);
-            });
+            return this.uploadFolder(folder);
         }
         else if (file) {
             file = this.appendPath(file);
@@ -82,13 +80,13 @@ class Store extends BaseClient {
         let uploadTask = [];
 
         if (files.length > NUM_LIMIT) {
-            return Promise.reject(new Error(`${FILE_NUM_LIMIT}: 100。`));
+            return this.error(`${FILE_NUM_LIMIT}: 100。`);
         }
 
         for (let i = 0, len = files.length; i < len; i++) {
             let item = files[i];
             if (this.checkSize(item)) {
-                return Promise.reject(new Error(`${FILE_SIZE_LIMIT}: 50GB。`));
+                return this.error(`${FILE_SIZE_LIMIT}: 50GB。`);
             }
             uploadTask.push(this.uploadFile(item));
         }
@@ -97,7 +95,7 @@ class Store extends BaseClient {
             this.spinStart();
         }
         else {
-            return Promise.reject(new Error(FOLDER_EMPTY));
+            return this.error(FOLDER_EMPTY);
         }
 
         return Promise.all(uploadTask);

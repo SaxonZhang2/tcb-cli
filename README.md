@@ -49,10 +49,10 @@ project
 
 | 命令 | 介绍
 | --- | ---
-| **database add** | 添加单个/批量文档
-| **database remove** | 删除单个/批量文档
-| **database update** | 更新单个/批量文档
-| **database set** | 更新或创建单个/批量文档
+| **database add --colleciton [collection name] --data [file]** | 添加单个/批量文档
+| **database remove --colleciton [collection name] --data [file]** | 删除单个/批量文档
+| **database update --colleciton [collection name] --data [file]** | 更新单个/批量文档
+| **database set --colleciton [collection name] --data [file]** | 更新或创建单个/批量文档
 
 [database 样例](./docs/database.md)
 
