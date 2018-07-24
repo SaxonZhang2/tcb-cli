@@ -8,3 +8,9 @@ tcb init
 ? Please input your tencent cloud secret key: // 腾讯云 secret key
 ? project name: // 项目名称
 ```
+
+* 如何获取 腾讯云 secret id 和 secret key
+
+![](./secret1.png)
+
+![](./secret2.png)
