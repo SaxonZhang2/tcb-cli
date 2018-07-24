@@ -1,6 +1,6 @@
 {
     "name": "tcb-cli",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "tencent cloud base client tool",
     "scripts": {
         "lint": "eslint bin src",
@@ -32,13 +32,12 @@
         "coveralls": "^3.0.1",
         "eslint": "^5.1.0",
         "eslint-config-alloy": "^1.4.2",
-        "jest": "^23.4.1",
-        "request": "^2.87.0"
+        "jest": "^23.4.1"
     },
     "dependencies": {
-        "bluebird": "^3.5.1",
         "cross-spawn": "^6.0.5",
         "fs-extra": "^7.0.0",
+        "glob": "^7.1.2",
         "inquirer": "^6.0.0",
         "klaw-sync": "^4.0.0",
         "lodash": "^4.17.10",
