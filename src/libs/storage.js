@@ -3,6 +3,16 @@ const glob = require('glob');
 const BaseClient = require('../base');
 const adminSDK = require('tcb-admin-node');
 const ora = require('ora');
+const {
+    FILE_MISSING,
+    FILE_NUM_LIMIT,
+    FILE_SIZE_LIMIT,
+    FOLDER_EMPTY,
+    UPLOAD_SUCCESS
+} = require('../common/message');
+
+const SIZE_LIMIT = 50 * 1024 * 1024 * 1024; // 50 GB 是上限
+const NUM_LIMIT = 100; // 100 个文件是上限
 
 class Store extends BaseClient {
     constructor(config = {}, argv) {
@@ -35,17 +45,23 @@ class Store extends BaseClient {
         }
         else if (folder) {
             folder = this.appendPath(folder);
-            return this.uploadFolder(folder);
+            return this.uploadFolder(folder).catch((e) => {
+                this.error(e.message);
+            });
         }
         else if (file) {
             file = this.appendPath(file);
             if (!this.fs.existsSync(file)) {
-                return Promise.reject(new Error(`${file} not exists.`));
+                return Promise.reject(new Error(`${file}: ${FILE_MISSING}`)).catch((e) => {
+                    this.error(e.message);
+                });
             }
 
             this.spinStart();
 
-            return this.uploadFile(file);
+            return this.uploadFile(file).catch((e) => {
+                this.error(e.message);
+            });
         }
     }
 
@@ -61,17 +77,27 @@ class Store extends BaseClient {
      * @param {String} folder 文件夹
      */
     uploadFolder(folder) {
-        let files = glob.sync(path.join(folder, '**/*'), {
-            nodir: true
-        });
+        let files = this.getFiles(folder);
+
         let uploadTask = [];
 
-        files.forEach((item) => {
+        if (files.length > NUM_LIMIT) {
+            return Promise.reject(new Error(`${FILE_NUM_LIMIT}: 100。`));
+        }
+
+        for (let i = 0, len = files.length; i < len; i++) {
+            let item = files[i];
+            if (this.checkSize(item)) {
+                return Promise.reject(new Error(`${FILE_SIZE_LIMIT}: 50GB。`));
+            }
             uploadTask.push(this.uploadFile(item));
-        });
+        }
 
         if (uploadTask.length) {
             this.spinStart();
+        }
+        else {
+            return Promise.reject(new Error(FOLDER_EMPTY));
         }
 
         return Promise.all(uploadTask);
@@ -99,6 +125,10 @@ class Store extends BaseClient {
             secretKey: secretkey
         });
 
+        if (this.checkSize(file)) {
+            return Promise.reject(new Error(`${FILE_SIZE_LIMIT}: 50GB。`));
+        }
+
         return this.up(cloudPath, file);
     }
 
@@ -115,17 +145,36 @@ class Store extends BaseClient {
             let result = JSON.parse(res);
             let data = result.data;
             if (result.code) {
-                this.spinner.fail(`${result.message}`);
+                this.spinFail(`${result.message}: ${file}`);
             }
             else if (data.message === 'SUCCESS') {
-                this.spinSucceed(`${path.basename(file)}\nfileId: ${data.fileid}\nfileUrl: ${data.url}`);
+                this.spinSucceed(`${path.basename(file)}\nfileId: ${data.fileid}\nfileUrl: ${data.url}: ${UPLOAD_SUCCESS}`);
             }
             else {
-                this.spinner.fail(`upload ${file} fail`);
+                this.spinFail(`${data.message}: ${file}`);
             }
         }).catch((err) => {
             this.spinFail(err.stack);
         });
+    }
+
+    /**
+     * 获取文件
+     * @param {String} folder 文件夹路径
+     */
+    getFiles(folder) {
+        return glob.sync(path.join(folder, '**/*'), {
+            nodir: true
+        });
+    }
+
+    /**
+     * 获取文件信息
+     * @param {String} file 文件路径
+     */
+    checkSize(file) {
+        let stats = this.fs.statSync(file);
+        return stats.size > SIZE_LIMIT;
     }
 
     /**

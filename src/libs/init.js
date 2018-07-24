@@ -9,6 +9,9 @@ let {
     Q_SECRETKEY,
     Q_PROJECT
 } = require('../common/questions');
+const {
+    FOLDER_EXIST
+} = require('../common/message');
 let {
     checkInput
 } = require('../common/utils');
@@ -42,8 +45,9 @@ class Init extends BaseClient {
      * @param {Object} options 配置
      */
     create(options = {}) {
-        if (checkInput.bind(this)(options)) {
-            return;
+        let msg = checkInput(options, ['mpappid', 'project', 'env', 'secretid', 'secretkey']);
+        if (msg) {
+            return this.error(msg);
         }
 
         const {
@@ -58,7 +62,7 @@ class Init extends BaseClient {
         let destPath = path.join(process.cwd(), project);
 
         if (this.fs.existsSync(destPath)) {
-            return this.error(`${destPath} exists.`);
+            return this.error(`${destPath}: ${FOLDER_EXIST}`);
         }
 
         this.fs.copySync(srcPath, destPath);

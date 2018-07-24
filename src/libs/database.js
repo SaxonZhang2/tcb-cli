@@ -1,6 +1,14 @@
 const BaseClient = require('../base');
 const adminSDK = require('tcb-admin-node');
 const path = require('path');
+const {
+    COLLECTION_MISSING,
+    INPUT_DATA_MISSING,
+    FILE_MISSING,
+    DATA_FORMAT,
+    DATA_OR_DOC_MISSING,
+    DOC_MISSING
+} = require('../common/message');
 
 class Database extends BaseClient {
     constructor(config = {}, argv) {
@@ -16,7 +24,7 @@ class Database extends BaseClient {
     init(cmd) {
         const { collection } = this.argv;
         if (!collection || !this._.isString(collection)) {
-            return this.error(`Please input collection.`);
+            return this.error(COLLECTION_MISSING);
         }
         if (cmd[1] === 'add') {
             return this.add();
@@ -38,11 +46,11 @@ class Database extends BaseClient {
         } = this.argv;
         const self = this;
         if (!file || !this._.isString(file)) {
-            return this.error(`Please input data.`);
+            return this.error(INPUT_DATA_MISSING);
         }
         file = this.appendPath(file);
         if (!this.fs.existsSync(file)) {
-            return this.error(`${file} not exists.`);
+            return this.error(`${file}: ${FILE_MISSING}`);
         }
 
         const addFileDatas = this.getFileDatas(file);
@@ -75,9 +83,9 @@ class Database extends BaseClient {
         let isFileMissing = !file || !this._.isString(file);
         file = this.appendPath(file);
         if (isDocMissing && isFileMissing) {
-            return this.error(`Please input doc or data.`);
+            return this.error(DATA_OR_DOC_MISSING);
         } else if (!isFileMissing && !this.fs.existsSync(file)) {
-            return this.error(`${file} not exists.`);
+            return this.error(`${file} ${FILE_MISSING}`);
         }
 
         let removeFileDatas;
@@ -117,9 +125,9 @@ class Database extends BaseClient {
         const isFileMissing = !file || !this._.isString(file);
         file = this.appendPath(file);
         if (isFileMissing) {
-            return this.error(`Please input data.`);
+            return this.error(INPUT_DATA_MISSING);
         } else if (!this.fs.existsSync(file)) {
-            return this.error(`${file} not exists.`);
+            return this.error(`${file}: ${FILE_MISSING}`);
         }
 
         let setFileDatas = this.getFileDatas(file);
@@ -139,7 +147,7 @@ class Database extends BaseClient {
                     setData = item.set;
                 } else {
                     if (isUpdate) {
-                        return Promise.reject(this.error(`Please input doc.`));
+                        return Promise.reject(this.error(DOC_MISSING));
                     } else {
                         setData = item;
                     }
@@ -150,7 +158,7 @@ class Database extends BaseClient {
             }
 
             if (!setData) {
-                return Promise.reject(this.error(`Invalid file content.`));
+                return Promise.reject(this.error(DATA_FORMAT));
             }
 
             const doc = collection.doc(setDoc);
@@ -212,10 +220,10 @@ class Database extends BaseClient {
         try {
             fileData = file.endsWith('.json') ? this.fs.readJsonSync(file) : file.endsWith('.js') ? require(file) : {};
         } catch (e) {
-            return this.error('Data format is not right.');
+            return this.error(DATA_FORMAT);
         }
         if (!Object.keys(fileData).length) {
-            return this.error(`Invalid file content.`);
+            return this.error(DATA_FORMAT);
         }
         return this._.isArray(fileData) ? fileData : [fileData];
     }

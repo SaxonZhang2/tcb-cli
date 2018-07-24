@@ -1,9 +1,14 @@
 const fs = require('fs-extra');
+const path = require('path');
 const {
     CUR_PATH,
     PROJECTS_PATH,
     TEMPLATE_PATH
 } = require('./constants');
+const {
+    FOLDER_EXIST,
+    SECRETKEY_MISSING,
+} = require('../src/common/message');
 let Plugin = require('../src/libs/init');
 
 beforeAll(() => {
@@ -77,6 +82,40 @@ describe('init', () => {
             });
             expect(projectJson.appid).toBe('123');
             done();
+        });
+    });
+
+    it('folder exists', () => {
+        let cmd = ['init'];
+        let plugin = new Plugin({}, {
+            _: cmd
+        });
+        plugin.error = jest.fn((msg) => {
+            expect(msg).toEqual(`${path.join(PROJECTS_PATH, 'project')}: ${FOLDER_EXIST}`);
+        });
+        plugin.create({
+            env: 123,
+            mpappid: 123,
+            secretid: 123,
+            secretkey: 123,
+            project: 'project'
+        });
+    });
+
+    it('check input', () => {
+        let cmd = ['init'];
+        let plugin = new Plugin({}, {
+            _: cmd
+        });
+        plugin.error = jest.fn((msg) => {
+            expect(msg).toEqual(SECRETKEY_MISSING);
+        });
+        plugin.create({
+            env: 123,
+            mpappid: 123,
+            secretid: 123,
+            secretkey: null,
+            project: 'project'
         });
     });
 });

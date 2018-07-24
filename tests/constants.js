@@ -30,3 +30,10 @@ exports.NULL_CONFIG = {
     secretId: null,
     secretKey: null
 };
+
+exports.EMPTY_CONFIG = {
+    env: null,
+    mpappid: null,
+    secretid: null,
+    secretkey: null
+};

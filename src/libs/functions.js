@@ -3,6 +3,11 @@ const BaseClient = require('../base');
 const adminSDK = require('tcb-admin-node');
 const { fork } = require('child_process');
 const scfBinFile = require.resolve('scf-cli');
+const {
+    FUNC_NAME_MISSING,
+    FILE_MISSING,
+    DATA_FORMAT,
+} = require('../common/message');
 
 class Functions extends BaseClient {
     constructor(config = {}, argv) {
@@ -18,15 +23,17 @@ class Functions extends BaseClient {
     init(cmd) {
         if (cmd[1] === 'call') {
             if (cmd.length < 3) {
-                return this.error('Please input function name.');
+                return Promise.reject(new Error(FUNC_NAME_MISSING)).catch((e) => {
+                    this.error(e.message);
+                });
             }
             let name = cmd[2];
             return this.call(name)
                 .then(result => {
                     this.log(JSON.stringify(result, null, 4));
                 })
-                .catch(e => {
-                    this.error(e.stack);
+                .catch((e) => {
+                    this.error(e.message);
                 });
         } else if (cmd[1] === 'debug') {
             this.debug();
@@ -70,11 +77,11 @@ class Functions extends BaseClient {
                     data = require(file);
                     return data;
                 } else {
-                    return Promise.reject(new Error(`${file} not exists.`));
+                    return Promise.reject(new Error(`${file}: ${FILE_MISSING}`));
                 }
             }
         } catch (e) {
-            return Promise.reject(new Error('Data format is not right.'));
+            return Promise.reject(new Error(DATA_FORMAT));
         }
 
         try {
@@ -83,12 +90,15 @@ class Functions extends BaseClient {
                 return data;
             }
         } catch (e) {
-            return Promise.reject(new Error('Data format is not right.'));
+            return Promise.reject(new Error(DATA_FORMAT));
         }
 
         return {};
     }
 
+    /**
+     * 开启本地 debug 服务器
+     */
     debug() {
         fork(scfBinFile, ['init']);
     }

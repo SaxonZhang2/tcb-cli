@@ -2,31 +2,31 @@
 let Q_MPAPPID = {
     type: 'input',
     name: 'mpappid',
-    message: 'Please input your miniprogram appid:'
+    message: '输入小程序 appid:'
 };
 
 let Q_ENV = {
     type: 'input',
     name: 'env',
-    message: 'Please input your environment id:'
+    message: '输入小程序云 env id:'
 };
 
 let Q_SECRETID = {
     type: 'input',
     name: 'secretid',
-    message: 'Please input your tencent cloud secret id:'
+    message: '输入腾讯云 secret id:'
 };
 
 let Q_SECRETKEY = {
     type: 'input',
     name: 'secretkey',
-    message: 'Please input your tencent cloud secret key:'
+    message: '输入腾讯云 secret key:'
 };
 
 let Q_PROJECT = {
     type: 'input',
     name: 'project',
-    message: 'project name:'
+    message: '项目名称:'
 };
 
 module.exports = {
