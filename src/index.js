@@ -6,6 +6,7 @@ const Functions = require('./libs/functions');
 const Storage = require('./libs/storage');
 const Config = require('./libs/config');
 const Database = require('./libs/database');
+const UpdateNotifier = require('update-notifier');
 
 let {
     Q_MPAPPID,
@@ -43,7 +44,10 @@ class Client extends BaseClient {
             return this.askForEnvId(cmd, argv);
         }
 
+        this.checkUpdate();
+
         this.runCmd(cmd, argv);
+
         return Promise.resolve();
     }
 
@@ -74,6 +78,17 @@ class Client extends BaseClient {
         }
 
         instance && instance.init(cmd);
+    }
+
+    checkUpdate() {
+        let pkg = require('../package.json');
+
+        let notifier = UpdateNotifier({
+            pkg,
+            updateCheckInterval: 0,
+            isGlobal: true
+        });
+        notifier.notify();
     }
 
     /**

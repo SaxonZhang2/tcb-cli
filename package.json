@@ -1,6 +1,6 @@
 {
     "name": "tcb-cli",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "tencent cloud base client tool",
     "scripts": {
         "lint": "eslint bin src",
