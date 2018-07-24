@@ -221,7 +221,7 @@ describe('storage', () => {
             file: 'wechat1.png'
         });
         plugin.error = jest.fn((msg) => {
-            expect(msg).toEqual(`cloud\\storage\\wechat1.png: ${FILE_MISSING}`);
+            expect(msg).toEqual(`${plugin.appendPath('wechat1.png')}: ${FILE_MISSING}`);
         });
         return plugin.init(cmd);
     });
@@ -343,7 +343,7 @@ describe('storage', () => {
         });
 
         plugin.init(cmd).then(() => {
-            expect(plugin.spinFail.mock.calls[0][0]).toEqual('error: cloud\\storage\\wechat.png');
+            expect(plugin.spinFail.mock.calls[0][0]).toEqual(`error: ${plugin.appendPath('wechat.png')}`);
             done();
         });
     });
@@ -378,7 +378,7 @@ describe('storage', () => {
         });
 
         plugin.init(cmd).then(() => {
-            expect(plugin.spinFail.mock.calls[0][0]).toEqual('fail: cloud\\storage\\wechat.png');
+            expect(plugin.spinFail.mock.calls[0][0]).toEqual(`fail: ${plugin.appendPath('wechat.png')}`);
             done();
         });
     });
