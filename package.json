@@ -1,7 +1,7 @@
 {
     "name": "tcb-cli",
     "version": "1.0.8",
-    "description": "tencent cloud base client tool",
+    "description": "CLI tool for Tencent Cloud Base",
     "scripts": {
         "lint": "eslint bin src",
         "test": "jest",
@@ -17,7 +17,7 @@
         "url": "git+https://github.com/TencentCloudBase/tcb-cli.git"
     },
     "keywords": [
-        "tencent cloud base",
+        " Tencent Cloud Base",
         "tcb",
         "cli"
     ],
