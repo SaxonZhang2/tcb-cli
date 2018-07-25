@@ -13,6 +13,7 @@ Tencent Cloud Base 命令行工具。
 ### init 初始化tcb项目
 
 * 初始化
+
 | 命令 | 介绍
 | --- | ---
 | **init** | 初始化项目
