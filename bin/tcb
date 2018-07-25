@@ -43,5 +43,6 @@ let argv = Yargs
     .command(['config', 'remove'], 'remove configuration', (yargs) => {}, (argv) => {
         client.init(argv);
     })
+    .version()
     .help()
     .argv;

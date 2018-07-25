@@ -18,7 +18,8 @@
     },
     "keywords": [
         "tencent cloud base",
-        "tcb"
+        "tcb",
+        "cli"
     ],
     "author": "lcxfs1991",
     "license": "MIT",
