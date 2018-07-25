@@ -58,3 +58,7 @@ tcb storage upload --folder icon
 // 将 /cloud/storage/ 上传至云端 /cloud/storage
 tcb storage upload --batch
 ```
+
+### 限制
+* 单次上传文件上限为100个
+* 单个文件的大小上限为 50 GB
